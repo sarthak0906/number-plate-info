@@ -3,6 +3,11 @@ var amqp = require('amqplib/callback_api')
 
 const app = express();
 
+app.get('/', (req, res) => {
+    console.log('working on something');
+    res.send('Hello There');
+})
+
 app.get('/dalembert', callD_alembert);
 
 function callD_alembert (req, res){
@@ -17,19 +22,22 @@ function callD_alembert (req, res){
         if (err){
             return console.log(err);
         }
+        console.log('amqp connected');
         con.createChannel((err, ch) => {
             if (err){
                 return console.log(err);
             }
+            console.log('channel created');
             var simulations = 'simulations';
             ch.assertQueue(simulations, {durable: false});
-
+            
             var results = 'results';
             ch.assertQueue(results, {durable: false});
-
+            
             ch.sendToQueue(simulations, new Buffer(JSON.stringify(input)));
-
+            
             ch.consume(results, (msg) => {
+                console.log('result sent');
                 return res.send(msg.content.toString())
             }, {noAck: true});
             setTimeout(() => {con.close()}, 500);
