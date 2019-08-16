@@ -1,5 +1,5 @@
 import pika
-import d_alembert
+from model
 import json
 
 connection = pika.BlockingConnection(pika.ConnectionParameters('localhost'))
@@ -10,12 +10,8 @@ channel.queue_declare(queue='results')
 
 def callback(ch, method, properties, body):
     requestParams = json.loads(body.decode('utf-8'))
-    funds = int(requestParams[0])
-    size = int(requestParams[1])
-    count = int(requestParams[2])
-    sims = int(requestParams[3])
 
-    results = d_alembert.simulate(funds, size, count, sims)
+    results = model.ml_predict()
     print(results)
 
     # send a message back

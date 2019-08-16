@@ -1,22 +1,36 @@
-var express = require('express');
+const express    = require('express');
+const multer     = require('multer');
+const bodyParser = require('body-parser');
 var amqp = require('amqplib/callback_api')
 
 const app = express();
+
+app.use(bodyParser.json())
+
+const Storage = multer.diskStorage({
+    destination(req, file, callback) {
+        callback(null, './images')
+    },
+    filename(req, file, callback) {
+        callback(null, `test1.png`)
+    },
+})
+
+const upload = multer({ storage: Storage })
 
 app.get('/', (req, res) => {
     console.log('working on something');
     res.send('Hello There');
 })
 
-app.get('/dalembert', callD_alembert);
+app.post('/predict', upload.single('test'), predict);
 
-function callD_alembert (req, res){
-    var input = [
-        req.query.funds, // starting funds
-        req.query.size, // (initial) wager size
-        req.query.count, // wager count — number of wagers per sim
-        req.query.sims // number of simulations
-    ]
+function predict (req, res){
+    console.log('file', req.files)
+    console.log('body', req.body)
+    // res.status(200).json({
+    //     message: 'success!',
+    // })
 
     amqp.connect('amqp://localhost', (err, con) => {
         if (err){
@@ -34,7 +48,7 @@ function callD_alembert (req, res){
             var results = 'results';
             ch.assertQueue(results, {durable: false});
             
-            ch.sendToQueue(simulations, new Buffer(JSON.stringify(input)));
+            ch.sendToQueue(simulations, new Buffer(JSON.stringify("something")));
             
             ch.consume(results, (msg) => {
                 console.log('result sent');
