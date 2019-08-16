@@ -1,0 +1,15 @@
+{
+  "name": "npr",
+  "version": "1.0.0",
+  "description": "production api to link python ml model to work on incoming request",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Sarthak Khandelwal",
+  "license": "ISC",
+  "dependencies": {
+    "amqplib": "^0.5.5",
+    "express": "^4.17.1"
+  }
+}
