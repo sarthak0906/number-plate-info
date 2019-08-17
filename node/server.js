@@ -55,6 +55,7 @@ function predict (req, res){
             ch.consume(results, (msg) => {
                 console.log('result sent');
                 result = msg.content.toString();
+                console.log('result is ' + result);
                 res.send(result);
                 // return res.send()
             });
