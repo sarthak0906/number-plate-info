@@ -57,8 +57,8 @@ function predict (req, res){
                 result = msg.content.toString();
                 res.send(result);
                 // return res.send()
-            }, {noAck: true});
-            setTimeout(() => {con.close()}, 500);
+            });
+            // setTimeout(() => {con.close()}, 500);
         })
     })
 
