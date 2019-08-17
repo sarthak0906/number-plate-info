@@ -42,5 +42,5 @@ def ml_predict():
     cropped_image = cv2.resize(cropped_image,(150,75))
     # imgshow(cropped_image)
     number = pytesseract.image_to_string('Test_crop/2.png',lang='eng')
-    #   return number
-    print(number)
+    return number
+    # print(number)
