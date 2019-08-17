@@ -28,6 +28,7 @@ app.post('/predict', upload.single('test'), predict);
 function predict (req, res){
     console.log('file', req.files)
     console.log('body', req.body)
+    var result = "";
     // res.status(200).json({
     //     message: 'success!',
     // })
@@ -52,13 +53,16 @@ function predict (req, res){
             
             ch.consume(results, (msg) => {
                 console.log('result sent');
-                return res.send(msg.content.toString())
+                result = msg.content.toString();
+                // return res.send()
             }, {noAck: true});
             setTimeout(() => {con.close()}, 500);
         })
     })
+
+    res.send(result);
 }
 
 app.listen(8000, () => {
-    console.log('server running on port 8080');
+    console.log('server running on port 8000');
 })
