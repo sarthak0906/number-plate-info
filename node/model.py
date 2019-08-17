@@ -1,9 +1,9 @@
 import numpy as np
 import pytesseract
+import cv2
 
-def ml_predict():    
-    pytesseract.pytesseract.tesseract_cmd = 'C:\\Program Files\\Tesseract-OCR\\tesseract.exe'
-    import cv2
+def ml_predict():
+    # pytesseract.pytesseract.tesseract_cmd = 'C:\\Program Files\\Tesseract-OCR\\tesseract.exe'
     imag = cv2.imread("test1.png",1)
     image = cv2.resize(imag,(500,400))
     image_gre = cv2.imread("test1.png",0)
@@ -38,7 +38,7 @@ def ml_predict():
             k+=1
             break
     cv2.drawContours(image,[numberplate_cnt],-1,(0,255,0),2)
-    imgshow(image) #main image
+    # imgshow(image) #main image
     cropped_image = cv2.imread('Test_crop/2.png')
     cropped_image = cv2.resize(cropped_image,(150,75))
     #imgshow(cropped_image)
