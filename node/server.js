@@ -37,6 +37,7 @@ function predict (req, res){
         if (err){
             return console.log(err);
         }
+        
         console.log('amqp connected');
         con.createChannel((err, ch) => {
             if (err){
@@ -54,6 +55,7 @@ function predict (req, res){
             ch.consume(results, (msg) => {
                 console.log('result sent');
                 result = msg.content.toString();
+                res.send(result);
                 // return res.send()
             }, {noAck: true});
             setTimeout(() => {con.close()}, 500);
