@@ -1,6 +1,6 @@
 import numpy as np
 import pytesseract
-pytesseract.pytesseract.tesseract_cmd = 'C:\\Program Files\\Tesseract-OCR\\tesseract.exe'
+# pytesseract.pytesseract.tesseract_cmd = 'C:\\Program Files\\Tesseract-OCR\\tesseract.exe'
 import cv2
 imag = cv2.imread("Test_01.png",1)
 image = cv2.resize(imag,(500,400))
