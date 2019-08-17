@@ -4,9 +4,9 @@ import cv2
 
 def ml_predict():
     # pytesseract.pytesseract.tesseract_cmd = 'C:\\Program Files\\Tesseract-OCR\\tesseract.exe'
-    imag = cv2.imread("test1.png",1)
+    imag = cv2.imread("Test_001.png",1)
     image = cv2.resize(imag,(500,400))
-    image_gre = cv2.imread("test1.png",0)
+    image_gre = cv2.imread("Test_001.png",0)
     image_grey = cv2.resize(image_gre,(500,400))    
     def imgshow(a):
         cv2.imshow('Test_011',a)
