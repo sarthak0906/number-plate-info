@@ -1,5 +1,5 @@
 import pika
-from model
+import model
 import json
 
 connection = pika.BlockingConnection(pika.ConnectionParameters('localhost'))
