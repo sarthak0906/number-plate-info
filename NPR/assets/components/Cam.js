@@ -80,7 +80,7 @@ export default class ImagePickerExample extends React.Component {
         // })
         // .then(response => response.json())
         .then(response => {
-            console.log("upload succes", response);
+            console.log("upload succes", response.result);
             alert("Upload success!");
 
             this.props.handDownResponse(response.result);
