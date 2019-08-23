@@ -11,7 +11,7 @@ export default class App extends React.Component{
   }
   
   state = {
-    Response: "Open up App.js to start working on your app have fun!",
+    Response: "Open up App.js to start working on your app and have fun!",
   };
   
   render() {

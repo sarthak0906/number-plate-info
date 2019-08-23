@@ -26,8 +26,8 @@ app.get('/', (req, res) => {
 app.post('/predict', upload.single('test'), predict);
 
 function predict (req, res){
-    console.log('file', req.files)
-    console.log('body', req.body)
+    // console.log('file', req.files)
+    // console.log('body', req.body)
     var result = "";
     // res.status(200).json({
     //     message: 'success!',
@@ -56,7 +56,7 @@ function predict (req, res){
                 console.log('result sent');
                 result = msg.content.toString();
                 console.log('result is ' + result);
-                res.send(result);
+                res.send(JSON.stringify({'result': result}));
                 // return res.send()
             });
             // setTimeout(() => {con.close()}, 500);

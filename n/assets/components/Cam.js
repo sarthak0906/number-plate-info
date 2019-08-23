@@ -46,49 +46,41 @@ export default class ImagePickerExample extends React.Component {
     };
 
     _pickImage = async () => {
-        console.log('_pickImage start')
         let result = await ImagePicker.launchImageLibraryAsync({
             allowsEditing: false,
             aspect: [4, 3],
         });
 
         if (!result.cancelled) {
-            this.setState({ image: result });
-            console.log(this.state.image);
+        this.setState({ image: result });
         }
-        else {
-            console.log('nada')
-        }
-
 
         // this.photoUpload();
     };
 
     photoUpload = () => {
-        const url = 'http://ec2-13-235-48-5.ap-south-1.compute.amazonaws.com:8000/';
         console.log(this.state.image)
-        fetch(url + 'predict', {
-            method: "POST",
-            body: this.createFormData(this.state.image)
-        })
-        // fetch('https://ipl-auctions.herokuapp.com/send', {
-        //     method: 'GET',
-        //     headers: {
-        //         Accept: 'application/json',
-        //         'Content-Type': 'application/json',
-        //     },
+        // fetch("http://ec2-13-235-48-5.ap-south-1.compute.amazonaws.com:8000/predict", {
+        //     method: "POST",
+        //     body: this.createFormData(this.state.image)
         // })
-        // .then(response => response.json())
+        fetch('http://www.ec2-13-235-48-5.ap-south-1.compute.amazonaws.com:8000/', {
+            method: 'GET',
+            headers: {
+                Accept: 'application/json',
+                'Content-Type': 'application/json',
+            },
+        })
+        .then(response => response.json())
         .then(response => {
             console.log("upload succes", response);
             alert("Upload success!");
 
-            this.props.handDownResponse(response.result);
+            this.props.handDownResponse(response);
         })
         .catch(error => {
             console.log("upload error", error);
             alert("Upload failed!");
-            alert(url);
         });
     }
 }

@@ -1,0 +1,11 @@
+upload error TypeError: Network request failed
+    at XMLHttpRequest.xhr.onerror (D:\sarthak\number-plate-info\NPR\node_modules\react-native\Libraries\vendor\core\whatwg-fetch.js:504)
+    at XMLHttpRequest.dispatchEvent (D:\sarthak\number-plate-info\NPR\node_modules\event-target-shim\lib\event-target.js:172)
+    at XMLHttpRequest.setReadyState (D:\sarthak\number-plate-info\NPR\node_modules\react-native\Libraries\Network\XMLHttpRequest.js:580)
+    at XMLHttpRequest.__didCompleteResponse (D:\sarthak\number-plate-info\NPR\node_modules\react-native\Libraries\Network\XMLHttpRequest.js:394)
+    at D:\sarthak\number-plate-info\NPR\node_modules\react-native\Libraries\Network\XMLHttpRequest.js:507
+    at RCTDeviceEventEmitter.emit (D:\sarthak\number-plate-info\NPR\node_modules\react-native\Libraries\vendor\emitter\EventEmitter.js:189)
+    at MessageQueue.__callFunction (D:\sarthak\number-plate-info\NPR\node_modules\react-native\Libraries\BatchedBridge\MessageQueue.js:366)
+    at D:\sarthak\number-plate-info\NPR\node_modules\react-native\Libraries\BatchedBridge\MessageQueue.js:106
+    at MessageQueue.__guard (D:\sarthak\number-plate-info\NPR\node_modules\react-native\Libraries\BatchedBridge\MessageQueue.js:314)
+    at MessageQueue.callFunctionReturnFlushedQueue (D:\sarthak\number-plate-info\NPR\node_modules\react-native\Libraries\BatchedBridge\MessageQueue.js:105)
