@@ -64,7 +64,7 @@ function predict (req, res){
         })
     })
 
-    res.send(result);
+    // res.send(result);
 }
 
 app.listen(8000, () => {
