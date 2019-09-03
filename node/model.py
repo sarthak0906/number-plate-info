@@ -27,6 +27,7 @@ def ml_predict():
     numberplate_cnt=None
     k=2
     for c in cntr:
+        print(k)
         perimeter = cv2.arcLength(c,True)
         approximate = cv2.approxPolyDP(c,0.1*perimeter,True)
         if len(approximate)==4:
