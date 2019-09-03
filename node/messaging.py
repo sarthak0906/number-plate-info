@@ -7,6 +7,7 @@ channel = connection.channel()
 
 channel.queue_declare(queue='simulations')
 channel.queue_declare(queue='results')
+print('worked')
 
 def callback(ch, method, properties, body):
     requestParams = json.loads(body.decode('utf-8'))
