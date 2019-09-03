@@ -1,8 +1,8 @@
+import numpy as np
+import pytesseract
+# pytesseract.pytesseract.tesseract_cmd = 'C:\\Program Files\\Tesseract-OCR\\tesseract.exe'
+import cv2
 def ml_predict():    
-    import numpy as np
-    import pytesseract
-    # pytesseract.pytesseract.tesseract_cmd = 'C:\\Program Files\\Tesseract-OCR\\tesseract.exe'
-    import cv2
     imag = cv2.imread('./images/test1.png',1)
     image = cv2.resize(imag,(500,400))
     image_gre = cv2.imread("./images/test1.png",0)
