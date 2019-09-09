@@ -15,10 +15,14 @@ export default class ImagePickerExample extends React.Component {
         let { image } = this.state;
 
         return (
-        <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+        <View style={{ flex: 1, alignItems: 'center', justifyContent: 'space-around' }}>
             <Button
-            title="Pick an image from camera roll"
-            onPress={this. _pickImage}
+                title="Pick an image from camera roll"
+                onPress={this. _pickImage}
+            />
+            <Button
+                title="Pick an image from Midea Library"
+                onPress={this. _pickLibImg}
             />
             {image &&
                 <View> 
@@ -47,8 +51,8 @@ export default class ImagePickerExample extends React.Component {
 
     _pickImage = async () => {
         console.log('_pickImage start')
-        let result = await ImagePicker.launchImageLibraryAsync({
-            allowsEditing: false,
+        let result = await ImagePicker.launchCameraAsync({
+            // allowsEditing: false,
             aspect: [4, 3],
         });
 
@@ -60,6 +64,23 @@ export default class ImagePickerExample extends React.Component {
             console.log('nada')
         }
 
+        // this.photoUpload();
+    };
+    
+    _pickLibImg = async () => {
+        console.log('_pickImage start')
+        let result = await ImagePicker.launchImageLibraryAsync({
+            // allowsEditing: false,
+            aspect: [4, 3],
+        });
+
+        if (!result.cancelled) {
+            this.setState({ image: result });
+            console.log(this.state.image);
+        }
+        else {
+            console.log('nada')
+        }
 
         // this.photoUpload();
     };
