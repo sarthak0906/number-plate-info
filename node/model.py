@@ -29,7 +29,7 @@ k=2
 for c in cntr:
     print(k)
     perimeter = cv2.arcLength(c,True)
-    approximate = cv2.approxPolyDP(c,0.1*perimeter,True)
+    approximate = cv2.approxPolyDP(c,0.01*perimeter,True)
     if len(approximate)==4:
         numberplate_cnt=approximate
         x,y,a,b=cv2.boundingRect(c)
