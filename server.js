@@ -5,11 +5,7 @@ var amqp = require('amqplib/callback_api');
 const MongoClient    = require('mongodb').MongoClient;
 const puppeteer = require('puppeteer');
 
-
 const app = express();
-
-let browser = '';
-let page = '';
 
 app.use(bodyParser.json())
 
@@ -30,31 +26,31 @@ app.get('/', (req, res) => {
 })
 
 
-app.get('/captcha', (req, res) => {
-    const divsCounts = await page.$$('#capatcha > img');
+// app.get('/captcha', (req, res) => {
+//     const divsCounts = await page.$$('#capatcha > img');
     
-    await divsCounts[0].screenshot({path: 'cap.png'})
-})
+//     await divsCounts[0].screenshot({path: 'cap.png'})
+// })
 
-app.get('/r/:str', async (req, res) => {
-    str = str;
-    cap = req.query.cap;
+// app.get('/r/:str', async (req, res) => {
+//     str = str;
+//     cap = req.query.cap;
 
-    await page.focus('#regn_no1_exact');
-    await page.keyboard.type(str);
-    await page.focus('#txt_ALPHA_NUMERIC');
-    await page.keyboard.type(cap);
+//     await page.focus('#regn_no1_exact');
+//     await page.keyboard.type(str);
+//     await page.focus('#txt_ALPHA_NUMERIC');
+//     await page.keyboard.type(cap);
 
-    await page.click('#j_idt42');
+//     await page.click('#j_idt42');
 
-    const result = await page.evaluate(() => {
-        let title = document.querySelector('#rcDetailsPanel > table > tbody > tr:nth-child(4) > td:nth-child(2)').innerText;
-        // let price = document.querySelector('.price_color').innerText;
+//     const result = await page.evaluate(() => {
+//         let title = document.querySelector('#rcDetailsPanel > table > tbody > tr:nth-child(4) > td:nth-child(2)').innerText;
+//         // let price = document.querySelector('.price_color').innerText;
 
-        return title;
+//         return title;
 
-    });
-});
+//     });
+// });
 
 app.post('/predict', upload.single('test'), predict);
 
@@ -120,11 +116,11 @@ function predict(req, res){
 //     // res.send(result);
 // }
 
-app.listen(8000, async () => {
-    browser = await puppeteer.launch({headless: false});
-    page = await browser.newPage();
+app.listen(process.env.PORT, async () => {
+    // browser = await puppeteer.launch({headless: false});
+    // page = await browser.newPage();
     
-    await page.goto('https://vahan.nic.in/nrservices/faces/user/searchstatus.xhtml');
+    // await page.goto('https://vahan.nic.in/nrservices/faces/user/searchstatus.xhtml');
     
     console.log('server running on port 8000');
 })

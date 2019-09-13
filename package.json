@@ -4,7 +4,7 @@
   "description": "production api to link python ml model to work on incoming request",
   "main": "app.js",
   "scripts": {
-    "start": "nodemon server.js",
+    "start": "node server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Sarthak Khandelwal",
