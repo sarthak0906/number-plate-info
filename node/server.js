@@ -3,7 +3,7 @@ const multer     = require('multer');
 const bodyParser = require('body-parser');
 var amqp = require('amqplib/callback_api');
 // const MongoClient    = require('mongodb').MongoClient;
-const puppeteer = require('puppeteer');
+// const puppeteer = require('puppeteer');
 
 
 const app = express();
@@ -67,7 +67,7 @@ function predict(req, res){
             res.send('error')
             return;
         }
-
+        console.log(stdout);
         res.send({"result":stdout});
     })
 }

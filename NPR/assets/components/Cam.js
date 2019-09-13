@@ -1,6 +1,7 @@
 import React from 'react';
 import { Button, Image, View } from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
+import * as FileSystem from 'expo-file-system';
 
 export default class ImagePickerExample extends React.Component {
     constructor(props){
@@ -38,13 +39,13 @@ export default class ImagePickerExample extends React.Component {
         );
     }
 
-    createFormData = async (photo) => {
+    createFormData = (photo) => {
         const data = new FormData();
       
         data.append("photo", {
-          name: photo.fileName,
-          type: 'image/jpeg',
-          uri : photo.uri.replace("file://", "")
+          name: 'test',
+          type: 'image/png',
+          uri : photo
         });
       
         return data;
@@ -88,28 +89,39 @@ export default class ImagePickerExample extends React.Component {
 
     photoUpload = () => {
         const url = 'http://ec2-52-66-47-27.ap-south-1.compute.amazonaws.com:8000/';
-        let img = this.createFormData(this.state.image).then(
-            // console.log(img)
-            fetch(url + 'predict', {
-                method: "POST",
-                body: img
-            })
-            .then(function(response) {
-                // console.log(response);
-                return response.json();
-            })
-            .then(function(myJson) {
-                console.log(myJson.result);
-                let r = (myJson.result);
-                r = r + "Belongs to Mr. A";
-                this.props.handDownResponse(r);
-                // console.log(JSON.stringify(myJson));
-            })
-            .catch(error => {
-                console.log("upload error", error);
-                alert("Upload failed!");
-                alert(url);
-            })
-        );
+        let body;
+        FileSystem.getContentUriAsync(this.state.image.uri).then(cUri => {
+            console.log(cUri);
+            body = cUri;
+            // IntentLauncher.startActivityAsync('android.intent.action.VIEW', {
+            //   data: cUri.uri,
+            //   flags: 1
+            // });
+        });
+        // let img = this.createFormData(this.state.image);
+        // console.log(img)
+        fetch(url + 'predict', {
+            method: 'POST',
+            headers:{  
+                "Content-Type": "multipart/form-data",
+                "otherHeader": "foo",
+            },
+            body :this.createFormData(body)})
+        .then(function(response) {
+            // console.log(response);
+            return response.json();
+        })
+        .then(function(myJson) {
+            console.log(myJson.result);
+            let r = (myJson.result);
+            r = r + "Belongs to Mr. A";
+            this.props.handDownResponse(r);
+            // console.log(JSON.stringify(myJson));
+        })
+        .catch(error => {
+            console.log("upload error", error);
+            alert("Upload failed!");
+            alert(url);
+        });
     }
 }
