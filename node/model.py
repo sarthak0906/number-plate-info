@@ -27,7 +27,7 @@ imcopy_1=image.copy()
 numberplate_cnt=None
 k=2
 for c in cntr:
-    print(k)
+    # print(k)
     perimeter = cv2.arcLength(c,True)
     approximate = cv2.approxPolyDP(c,0.01*perimeter,True)
     if len(approximate)==4:
