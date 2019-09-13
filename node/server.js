@@ -111,6 +111,6 @@ function predict (req, res){
     // res.send(result);
 }
 
-app.listen(process.env.PORT, async () => {    
+app.listen(8000, async () => {    
     console.log('server running on port 8000');
 })
