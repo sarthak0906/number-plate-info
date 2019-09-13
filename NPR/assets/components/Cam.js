@@ -65,7 +65,7 @@ export default class ImagePickerExample extends React.Component {
             console.log('nada')
         }
 
-        this.photoUpload();
+        // this.photoUpload();
     };
     
     _pickLibImg = async () => {
@@ -83,21 +83,21 @@ export default class ImagePickerExample extends React.Component {
             console.log('nada')
         }
 
-        this.photoUpload();
+        // this.photoUpload();
     };
 
     photoUpload = () => {
         const url = 'http://ec2-52-66-47-27.ap-south-1.compute.amazonaws.com:8000/';
-        console.log(this.state.image)
+        // console.log(this.state.image)
         fetch(url + 'predict', {
             method: "POST",
             body: this.createFormData(this.state.image)
         })
         .then(response => {
-            console.log("upload succes", response.result);
+            console.log(response);
             alert("Upload success!");
 
-            this.props.handDownResponse(response.result + 'this is registered on the name of A.P.J. Abdul Kalam ');
+            this.props.handDownResponse(response.result);
         })
         .catch(error => {
             console.log("upload error", error);

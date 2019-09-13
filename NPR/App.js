@@ -29,6 +29,7 @@ export default class App extends React.Component{
   handleResponse = (p) => {
     this.setState({Response: p});
     console.log('something intresting going on')
+    console.log(p);
   }
 }
 
