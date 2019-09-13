@@ -8,7 +8,7 @@ const puppeteer = require('puppeteer');
 
 const app = express();
 
-app.use(bodyParser.json())
+// app.use(bodyParser.json())
 
 const Storage = multer.diskStorage({
     destination(req, file, callback) {
