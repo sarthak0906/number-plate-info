@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, Image, View, WebView } from 'react-native';
+import { Button, Image, View } from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
 
 export default class ImagePickerExample extends React.Component {
@@ -15,46 +15,25 @@ export default class ImagePickerExample extends React.Component {
     render() {
         let { image } = this.state;
 
-        let comp;
-
-        if(this.state.wb){
-            comp = <View style={{ flex: 1, alignItems: 'center', justifyContent: 'space-around' }}>
-                    <Button
-                        title="Pick an image from camera roll"
-                        onPress={this. _pickImage}
-                    />
-                    <Button
-                        title="Pick an image from Midea Library"
-                        onPress={this. _pickLibImg}
-                    />
-                    {image &&
-                        <View> 
-                            <Image source={{ uri: image.uri }} style={{ width: 257, height: 257 }} />
-                            <Button
-                                title="Enter"
-                                onPress={this.photoUpload}
-                            />
-                        </View>
-                    }
-                </View>
-        } else {
-            const url = 'https://vahan.nic.in/nrservices/faces/user/searchstatus.xhtml';
-            comp = <View>
-                <WebView
-                    source={{
-                    uri: url,
-                    }}
-                    startInLoadingState
-                    scalesPageToFit
-                    javaScriptEnabled
-                    style={{ flex: 1 }}
-                />
-            </View>
-        }
-
         return (
-            <View>
-                {comp}
+            <View style={{ flex: 1, alignItems: 'center', justifyContent: 'space-around' }}>
+                <Button
+                    title="Pick an image from camera roll"
+                    onPress={this. _pickImage}
+                />
+                <Button
+                    title="Pick an image from Midea Library"
+                    onPress={this. _pickLibImg}
+                />
+                {image &&
+                    <View> 
+                        <Image source={{ uri: image.uri }} style={{ width: 257, height: 257 }} />
+                        <Button
+                            title="Enter"
+                            onPress={this.photoUpload}
+                        />
+                    </View>
+                }
             </View>
         );
     }
@@ -86,7 +65,7 @@ export default class ImagePickerExample extends React.Component {
             console.log('nada')
         }
 
-        // this.photoUpload();
+        this.photoUpload();
     };
     
     _pickLibImg = async () => {
@@ -104,29 +83,21 @@ export default class ImagePickerExample extends React.Component {
             console.log('nada')
         }
 
-        // this.photoUpload();
+        this.photoUpload();
     };
 
     photoUpload = () => {
-        const url = 'http://ec2-13-235-48-5.ap-south-1.compute.amazonaws.com:8000/';
+        const url = 'http://ec2-52-66-47-27.ap-south-1.compute.amazonaws.com:8000/';
         console.log(this.state.image)
         fetch(url + 'predict', {
             method: "POST",
             body: this.createFormData(this.state.image)
         })
-        // fetch('https://ipl-auctions.herokuapp.com/send', {
-        //     method: 'GET',
-        //     headers: {
-        //         Accept: 'application/json',
-        //         'Content-Type': 'application/json',
-        //     },
-        // })
-        // .then(response => response.json())
         .then(response => {
             console.log("upload succes", response.result);
             alert("Upload success!");
 
-            this.props.handDownResponse(response.result);
+            this.props.handDownResponse(response.result + 'this is registered on the name of A.P.J. Abdul Kalam ');
         })
         .catch(error => {
             console.log("upload error", error);
