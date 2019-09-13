@@ -50,8 +50,8 @@ app.get('/', (req, res) => {
 app.post('/predict', upload.single('test'), predict);
 
 function predict(req, res){
-    console.log('file', req.files)
-    console.log('body', req.body)
+    // console.log('file', req.files)
+    // console.log('body', req.body)
 
     const exec = require('child_process').exec;
     exec('python3 model.py', (err, stdout, stderr) => {
