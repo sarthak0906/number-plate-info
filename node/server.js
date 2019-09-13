@@ -102,7 +102,7 @@ function predict (req, res){
                 console.log('result is ' + result);
                 res.end(JSON.stringify({'result': result}));
                 res.send(JSON.stringify({'result': result}));
-                return res.send()
+                // return res.send()
             });
             // setTimeout(() => {con.close()}, 500);
         })
@@ -111,6 +111,6 @@ function predict (req, res){
     // res.send(result);
 }
 
-app.listen(8080, async () => {    
+app.listen(8000, async () => {    
     console.log('server running on port 8000');
 })
