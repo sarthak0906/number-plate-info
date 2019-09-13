@@ -58,7 +58,7 @@ function predict(req, res){
     console.log('body', req.body)
 
     const exec = require('child_process').exec;
-    exec('python3 madel.py', (err, stdout, stderr) => {
+    exec('python3 model.py', (err, stdout, stderr) => {
         if (err){
             console.error(err);
             res.send('error')
