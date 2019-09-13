@@ -100,7 +100,7 @@ function predict (req, res){
                 console.log('result sent');
                 result = msg.content.toString();
                 console.log('result is ' + result);
-                res.send(result);
+                res.send({result});
                 // res.end();
                 // return res.send()
             });
