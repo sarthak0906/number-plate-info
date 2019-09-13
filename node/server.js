@@ -47,7 +47,7 @@ app.get('/', (req, res) => {
 //     });
 // });
 
-app.post('/predict', upload.single('test1'), predict);
+app.post('/predict', upload.single('test'), predict);
 
 // function predict(req, res){
 //     console.log('file', req.files)
