@@ -27,25 +27,25 @@ app.get('/', (req, res) => {
 })
 
 
-app.get('/r/:str', async (req, res) => {
-    str = str;
-    cap = req.query.cap;
+// app.get('/r/:str', async (req, res) => {
+//     str = str;
+//     cap = req.query.cap;
 
-    await page.focus('#regn_no1_exact');
-    await page.keyboard.type(str);
-    await page.focus('#txt_ALPHA_NUMERIC');
-    await page.keyboard.type(cap);
+//     await page.focus('#regn_no1_exact');
+//     await page.keyboard.type(str);
+//     await page.focus('#txt_ALPHA_NUMERIC');
+//     await page.keyboard.type(cap);
 
-    await page.click('#j_idt42');
+//     await page.click('#j_idt42');
 
-    const result = await page.evaluate(() => {
-        let title = document.querySelector('#rcDetailsPanel > table > tbody > tr:nth-child(4) > td:nth-child(2)').innerText;
-        // let price = document.querySelector('.price_color').innerText;
+//     const result = await page.evaluate(() => {
+//         let title = document.querySelector('#rcDetailsPanel > table > tbody > tr:nth-child(4) > td:nth-child(2)').innerText;
+//         // let price = document.querySelector('.price_color').innerText;
 
-        return title;
+//         return title;
 
-    });
-});
+//     });
+// });
 
 app.post('/predict', upload.single('test'), predict);
 
