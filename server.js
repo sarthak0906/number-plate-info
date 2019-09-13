@@ -2,7 +2,6 @@ const express    = require('express');
 const multer     = require('multer');
 const bodyParser = require('body-parser');
 // var amqp = require('amqplib/callback_api');
-// const MongoClient    = require('mongodb').MongoClient;
 // const puppeteer = require('puppeteer');
 
 const app = express();
