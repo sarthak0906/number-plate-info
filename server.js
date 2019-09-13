@@ -121,6 +121,17 @@ app.listen(process.env.PORT, async () => {
     
     // await page.goto('https://vahan.nic.in/nrservices/faces/user/searchstatus.xhtml');
     const exec = require('child_process').exec;
-    exec('pip install -r libraries.txt')
+    exec('pip install -r libraries.txt', (err, stdout, std,err) => {
+        if (err){
+            console.log(err);
+        }
+        else if (stderr){
+            console.error(stderr);
+            // res.send('error')
+            return;
+        }
+
+        console.log(stdout);
+    })
     console.log('server running on port 8000');
 })
