@@ -121,7 +121,7 @@ app.listen(process.env.PORT, async () => {
     
     // await page.goto('https://vahan.nic.in/nrservices/faces/user/searchstatus.xhtml');
     const exec = require('child_process').exec;
-    exec('pip install -r libraries.txt', (err, stdout, std,err) => {
+    exec('pip install -r libraries.txt', (err, stdout, stderr) => {
         if (err){
             console.log(err);
         }
