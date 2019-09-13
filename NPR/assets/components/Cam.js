@@ -38,13 +38,13 @@ export default class ImagePickerExample extends React.Component {
         );
     }
 
-    createFormData = (photo) => {
+    createFormData = async (photo) => {
         const data = new FormData();
       
         data.append("photo", {
           name: photo.fileName,
           type: 'image/jpeg',
-          uri : photo.uri
+          uri : photo.uri.replace("file://", "")
         });
       
         return data;
@@ -88,30 +88,28 @@ export default class ImagePickerExample extends React.Component {
 
     photoUpload = () => {
         const url = 'http://ec2-52-66-47-27.ap-south-1.compute.amazonaws.com:8000/';
-        console.log('this.state.image')
-        fetch(url + 'predict', {
-            method: "POST",
-            body: this.createFormData(this.state.image)
-        })
-        .then(function(response) {
-            console.log(response);
-            return response.json();
-          })
-          .then(function(myJson) {
-            console.log(JSON.stringify(myJson));
-          })
-          .then((response) => {
-            console.log('response');
-            console.log(response);
-            console.log(a);
-            alert("Upload success!");
-            this.props.handDownResponse("HR26DK8337 belongs to Dr. APJ Abdul Kalam");
-
-        })
-        .catch(error => {
-            console.log("upload error", error);
-            alert("Upload failed!");
-            alert(url);
-        });
+        let img = this.createFormData(this.state.image).then(
+            // console.log(img)
+            fetch(url + 'predict', {
+                method: "POST",
+                body: img
+            })
+            .then(function(response) {
+                // console.log(response);
+                return response.json();
+            })
+            .then(function(myJson) {
+                console.log(myJson.result);
+                let r = (myJson.result);
+                r = r + "Belongs to Mr. A";
+                this.props.handDownResponse(r);
+                // console.log(JSON.stringify(myJson));
+            })
+            .catch(error => {
+                console.log("upload error", error);
+                alert("Upload failed!");
+                alert(url);
+            })
+        );
     }
 }
