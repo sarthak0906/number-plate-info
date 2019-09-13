@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View, Button } from 'react-native';
 import Cam from './assets/components/Cam'
 import Constants from 'expo-constants';
 
@@ -12,6 +12,7 @@ export default class App extends React.Component{
   
   state = {
     Response: "Open up App.js to start working on your app have fun!",
+    MidLib: false,
   };
   
   render() {

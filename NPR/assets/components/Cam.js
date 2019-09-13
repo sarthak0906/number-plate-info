@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, Image, View } from 'react-native';
+import { Button, Image, View, WebView } from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
 
 export default class ImagePickerExample extends React.Component {
@@ -9,31 +9,53 @@ export default class ImagePickerExample extends React.Component {
 
     state = {
         image: null,
+        wb: false
     };
 
     render() {
         let { image } = this.state;
 
-        return (
-        <View style={{ flex: 1, alignItems: 'center', justifyContent: 'space-around' }}>
-            <Button
-                title="Pick an image from camera roll"
-                onPress={this. _pickImage}
-            />
-            <Button
-                title="Pick an image from Midea Library"
-                onPress={this. _pickLibImg}
-            />
-            {image &&
-                <View> 
-                    <Image source={{ uri: image.uri }} style={{ width: 257, height: 257 }} />
+        let comp;
+
+        if(this.state.wb){
+            comp = <View style={{ flex: 1, alignItems: 'center', justifyContent: 'space-around' }}>
                     <Button
-                        title="Enter"
-                        onPress={this.photoUpload}
+                        title="Pick an image from camera roll"
+                        onPress={this. _pickImage}
                     />
+                    <Button
+                        title="Pick an image from Midea Library"
+                        onPress={this. _pickLibImg}
+                    />
+                    {image &&
+                        <View> 
+                            <Image source={{ uri: image.uri }} style={{ width: 257, height: 257 }} />
+                            <Button
+                                title="Enter"
+                                onPress={this.photoUpload}
+                            />
+                        </View>
+                    }
                 </View>
-            }
-        </View>
+        } else {
+            const url = 'https://vahan.nic.in/nrservices/faces/user/searchstatus.xhtml';
+            comp = <View>
+                <WebView
+                    source={{
+                    uri: url,
+                    }}
+                    startInLoadingState
+                    scalesPageToFit
+                    javaScriptEnabled
+                    style={{ flex: 1 }}
+                />
+            </View>
+        }
+
+        return (
+            <View>
+                {comp}
+            </View>
         );
     }
 
