@@ -8,9 +8,6 @@ const puppeteer = require('puppeteer');
 
 const app = express();
 
-let browser = '';
-let page = '';
-
 app.use(bodyParser.json())
 
 const Storage = multer.diskStorage({
@@ -29,12 +26,6 @@ app.get('/', (req, res) => {
     res.send('Hello There');
 })
 
-
-app.get('/captcha', (req, res) => {
-    const divsCounts = await page.$$('#capatcha > img');
-    
-    await divsCounts[0].screenshot({path: 'cap.png'})
-})
 
 app.get('/r/:str', async (req, res) => {
     str = str;
@@ -120,11 +111,6 @@ function predict(req, res){
 //     // res.send(result);
 // }
 
-app.listen(8000, async () => {
-    browser = await puppeteer.launch({headless: false});
-    page = await browser.newPage();
-    
-    await page.goto('https://vahan.nic.in/nrservices/faces/user/searchstatus.xhtml');
-    
+app.listen(process.env.PORT, async () => {    
     console.log('server running on port 8000');
 })
