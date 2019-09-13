@@ -39,7 +39,7 @@ def ml_predict():
             break
     cv2.drawContours(image,[numberplate_cnt],-1,(0,255,0),2)
     # imgshow(image)
-    cropped_image = cv2.imread('images/2.png')
+    cropped_image = cv2.imread('Test_crop/2.png')
     cropped_image = cv2.resize(cropped_image,(200,75))
     # imgshow(cropped_image)
     number = pytesseract.image_to_string('Test_crop/2.png',lang='eng')
