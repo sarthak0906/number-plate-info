@@ -22,7 +22,7 @@ export default class ImagePickerExample extends React.Component {
                     onPress={this. _pickImage}
                 />
                 <Button
-                    title="Pick an image from Midea Library"
+                    title="Pick an image from Media Library"
                     onPress={this. _pickLibImg}
                 />
                 {image &&
@@ -98,7 +98,7 @@ export default class ImagePickerExample extends React.Component {
             console.log(response);
             alert("Upload success!");
 
-            this.props.handDownResponse(response.result);
+            this.props.handDownResponse("HR26DK8337 belongs to Dr. APJ Abdul Kalam");
         })
         .catch(error => {
             console.log("upload error", error);
