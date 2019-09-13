@@ -93,9 +93,17 @@ export default class ImagePickerExample extends React.Component {
             method: "POST",
             body: this.createFormData(this.state.image)
         })
-        .then(response => {
+        .then(function(response) {
+            console.log(response);
+            return response.json();
+          })
+          .then(function(myJson) {
+            console.log(JSON.stringify(myJson));
+          })
+          .then((response) => {
             console.log('response');
-            console.log(response.body);
+            console.log(response);
+            console.log(a);
             alert("Upload success!");
 
             this.props.handDownResponse("HR26DK8337 belongs to Dr. APJ Abdul Kalam");

@@ -67,7 +67,7 @@ function predict(req, res){
             return;
         }
 
-        res.send(stdout);
+        res.send(JSON.stringify({"result": result}));
     })
 }
 
