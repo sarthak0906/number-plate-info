@@ -101,7 +101,7 @@ function predict (req, res){
                 result = msg.content.toString();
                 console.log('result is ' + result);
                 // res.send({result});
-                res.end({result});
+                res.end({'result':result});
                 // return res.send()
             });
             // setTimeout(() => {con.close()}, 500);

@@ -95,7 +95,7 @@ export default class ImagePickerExample extends React.Component {
         })
         .then(response => {
             console.log('response');
-            console.log(response);
+            console.log(response.body);
             alert("Upload success!");
 
             this.props.handDownResponse("HR26DK8337 belongs to Dr. APJ Abdul Kalam");
