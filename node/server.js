@@ -66,6 +66,7 @@ function predict(req, res){
             console.error(stderr);
             res.send('error')
             return;
+        }
         
         res.send({"result":stdout});
     })
