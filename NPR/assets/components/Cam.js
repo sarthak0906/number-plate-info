@@ -54,6 +54,7 @@ export default class ImagePickerExample extends React.Component {
     _pickImage = async () => {
         console.log('_pickImage start')
         let result = await ImagePicker.launchCameraAsync({
+            base64: true,
             // allowsEditing: false,
             aspect: [4, 3],
         });
@@ -72,13 +73,14 @@ export default class ImagePickerExample extends React.Component {
     _pickLibImg = async () => {
         console.log('_pickImage start')
         let result = await ImagePicker.launchImageLibraryAsync({
+            base64: true,   
             // allowsEditing: false,
             aspect: [4, 3],
         });
 
         if (!result.cancelled) {
             this.setState({ image: result });
-            console.log(this.state.image);
+            console.log(this.state.image.base64);
         }
         else {
             console.log('nada')
@@ -88,25 +90,19 @@ export default class ImagePickerExample extends React.Component {
     };
 
     photoUpload = () => {
-        const url = 'http://ec2-52-66-47-27.ap-south-1.compute.amazonaws.com:8000/';
+        const url = 'localhost:8000/fileUp';
         let body;
-        FileSystem.getContentUriAsync(this.state.image.uri).then(cUri => {
-            console.log(cUri);
-            body = cUri;
-            // IntentLauncher.startActivityAsync('android.intent.action.VIEW', {
-            //   data: cUri.uri,
-            //   flags: 1
-            // });
-        });
         // let img = this.createFormData(this.state.image);
         // console.log(img)
-        fetch(url + 'predict', {
+        fetch(url, {
             method: 'POST',
             headers:{  
-                "Content-Type": "multipart/form-data",
-                "otherHeader": "foo",
+                "Content-Type": "application/json",
+                // "otherHeader": "foo",
             },
-            body :this.createFormData(body)})
+            body : {
+                "b64" : this.state.image.base64
+            }
         .then(function(response) {
             // console.log(response);
             return response.json();
@@ -118,10 +114,10 @@ export default class ImagePickerExample extends React.Component {
             this.props.handDownResponse(r);
             // console.log(JSON.stringify(myJson));
         })
-        .catch(error => {
-            console.log("upload error", error);
-            alert("Upload failed!");
-            alert(url);
-        });
+        // .catch(error => {
+        //     console.log("upload error", error);
+        //     // alert("Upload failed!");
+        //     // alert(url);
+        // });
     }
 }

@@ -1,32 +1,39 @@
 const express    = require('express');
 const multer     = require('multer');
 const bodyParser = require('body-parser');
-var amqp = require('amqplib/callback_api');
+// var amqp = require('amqplib/callback_api');
 // const MongoClient    = require('mongodb').MongoClient;
 // const puppeteer = require('puppeteer');
-
-
+const fs = require('fs');
 const app = express();
 
-// app.use(bodyParser.json())
+// Parse JSON bodies (as sent by API clients)
+app.use(express.json());
 
-const Storage = multer.diskStorage({
-    destination(req, file, callback) {
-        callback(null, './images')
-    },
-    filename(req, file, callback) {
-        console.log('here');
-        callback(null, `test1.png`)
-    },
-})
-
-const upload = multer({ storage: Storage })
+app.use(bodyParser.json({limit: '50mb'}));
+app.use(bodyParser.urlencoded({limit: '50mb', extended: true}));
 
 app.get('/', (req, res) => {
     console.log('working on something');
     res.send('Hello There');
 })
 
+app.post('/fileUp', (req, res) => {
+    if (!req.body){
+        res.send('FO');
+    }
+    else {
+        // console.log(req.body);
+        let base64String = req.body.b64;
+        // Remove header
+        let base64Image = base64String.split(';base64,').pop();
+        fs.writeFile('imageb64.png', base64Image, {encoding: 'base64'}, (err) => {
+            console.log('image created');
+            res.setHeader('Content-Type', 'application/json');
+            res.end(JSON.stringify({ "res": "Image created"}));
+        })
+    }
+})
 
 // app.get('/r/:str', async (req, res) => {
 //     str = str;
@@ -48,29 +55,61 @@ app.get('/', (req, res) => {
 //     });
 // });
 
-app.post('/predict', upload.single('test'), predict);
+// app.post('/file', fileUp);
 
-function predict(req, res){
-    // console.log('file', req.files)
-    // console.log('body', req.body)
+// app.post('/predict', predict);
 
-    const exec = require('child_process').exec;
-    exec('python3 model.py', (err, stdout, stderr) => {
-        if (err){
-            console.error(err);
-            res.send('error')
-            return;
-        }
+// function fileUp(req, res){
+//     if (!req.body){
+//         console.log('No body recieved in the request to be saved');
+//         res.setHeader('Content-Type', 'application/json');
+//         res.end(JSON.stringify({ "res": "No file found" }));
+//     }
+    // else {
+    //     console.log(req.body);
+    //     let base64String = req.body.b64;
+    //     // Remove header
+    //     let base64Image = base64String.split(';base64,').pop();
+    //     fs.writeFile('imageb64.png', base64Image, {encoding: 'base64'}, (err) => {
+    //         console.log('image created');
+    //         res.setHeader('Content-Type', 'application/json');
+    //         res.end(JSON.stringify({ "res": "Image created"}));
+    //     })
+    // }
+// }
+
+// function predict(req, res){
+//     // console.log('file', req.files)
+//     console.log('body', req.body)
+
+//     if(req.body.b64){
+//         console.log('Does contain file');
+//         let base64String = res.body.b64;
+//         // Remove header
+//         let base64Image = base64String.split(';base64,').pop();
+//         const fs = require('fs');
+//         fs.writeFile('i.png', base64Image, {encoding: 'base64'}, function(err) {
+//             console.log('File created');
+//         });
+//     }
+
+    // const exec = require('child_process').exec;
+    // exec('python3 model.py', (err, stdout, stderr) => {
+    //     if (err){
+    //         console.error(err);
+    //         res.send('error')
+    //         return;
+    //     }
         
-        if (stderr){
-            console.error(stderr);
-            res.send('error')
-            return;
-        }
+    //     if (stderr){
+    //         console.error(stderr);
+    //         res.send('error')
+    //         return;
+    //     }
         
-        res.send({"result":stdout});
-    })
-}
+    //     res.send({"result":stdout});
+    // })
+// }
 
 // function predict (req, res){
 //     var result = "";
@@ -112,6 +151,6 @@ function predict(req, res){
 //     // res.send(result);
 // }
 
-app.listen(8000, async () => {    
+app.listen(8000, () => {    
     console.log('server running on port 8000');
 })
