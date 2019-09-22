@@ -8,10 +8,10 @@ const fs = require('fs');
 const app = express();
 
 // Parse JSON bodies (as sent by API clients)
-// app.use(express.json());
+app.use(express.json());
 
-app.use(bodyParser.json({limit: '50mb'}));
-app.use(bodyParser.urlencoded({limit: '50mb', extended: true}));
+app.use(bodyParser.json({limit: '90mb'}));
+app.use(bodyParser.urlencoded({limit: '90mb', extended: true}));
 
 app.get('/', (req, res) => {
     console.log('working on something');
@@ -29,8 +29,24 @@ app.post('/fileUp', (req, res) => {
         let base64Image = base64String.split(';base64,').pop();
         fs.writeFile('imageb64.png', base64Image, {encoding: 'base64'}, (err) => {
             console.log('image created');
-            res.setHeader('Content-Type', 'application/json');
-            res.end(JSON.stringify({ "res": "Image created"}));
+            // res.setHeader('Content-Type', 'application/json');
+            // res.end(JSON.stringify({ "res": "Image created"}));
+            const exec = require('child_process').exec;
+            exec('python3 model.py', (err, stdout, stderr) => {
+                if (err){
+                    console.error(err);
+                    res.send('error')
+                    return;
+                }
+                
+                if (stderr){
+                    console.error(stderr);
+                    res.send('error')
+                    return;
+                }
+                
+                res.send({"result":stdout});
+            })
         })
     }
 })
