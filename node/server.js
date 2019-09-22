@@ -45,7 +45,9 @@ app.post('/fileUp', (req, res) => {
                     return;
                 }
                 
-                res.send({"result":stdout});
+                // res.send(JSON.stringify({"res" : stdout}));
+                res.setHeader('Content-Type', 'application/json');
+                res.end(JSON.stringify({ "res": stdout}));
             })
         })
     }

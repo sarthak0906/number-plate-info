@@ -90,8 +90,7 @@ export default class ImagePickerExample extends React.Component {
     };
 
     photoUpload = () => {
-        const url = 'localhost:8000/fileUp';
-        let body;
+        const url = 'http://ec2-52-66-47-27.ap-south-1.compute.amazonaws.com:8001/fileUp';
         // let img = this.createFormData(this.state.image);
         // console.log(img)
         fetch(url, {
@@ -100,24 +99,25 @@ export default class ImagePickerExample extends React.Component {
                 "Content-Type": "application/json",
                 // "otherHeader": "foo",
             },
-            body : {
+            body : JSON.stringify({
                 "b64" : this.state.image.base64
-            }
+            })
+        })
         .then(function(response) {
-            // console.log(response);
+            console.log(response);
             return response.json();
         })
         .then(function(myJson) {
-            console.log(myJson.result);
-            let r = (myJson.result);
-            r = r + "Belongs to Mr. A";
-            this.props.handDownResponse(r);
+            console.log(myJson.res);
+            // let r = (myJson.result);
+            // r = r + "Belongs to Mr. A";
+            // this.props.handDownResponse(r);
             // console.log(JSON.stringify(myJson));
         })
-        // .catch(error => {
-        //     console.log("upload error", error);
-        //     // alert("Upload failed!");
-        //     // alert(url);
-        // });
+        .catch(error => {
+            console.log("upload error", error);
+            // alert("Upload failed!");
+            // alert(url);
+        });
     }
 }
