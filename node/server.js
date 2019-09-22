@@ -151,6 +151,8 @@ app.post('/fileUp', (req, res) => {
 //     // res.send(result);
 // }
 
-app.listen(8001, () => {    
-    console.log('server running on port 8001');
+var port = 8002;
+
+app.listen(port, () => {    
+    console.log('server running on port ' + port);
 })
