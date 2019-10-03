@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, Image, View } from 'react-native';
+import { Text, Button, Image, View } from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
 import * as FileSystem from 'expo-file-system';
 
@@ -9,6 +9,7 @@ export default class ImagePickerExample extends React.Component {
     }
 
     state = {
+        Response: "HAHAHAHAHAHAHAHAHA",
         image: null,
         wb: false
     };
@@ -17,24 +18,27 @@ export default class ImagePickerExample extends React.Component {
         let { image } = this.state;
 
         return (
-            <View style={{ flex: 1, alignItems: 'center', justifyContent: 'space-around' }}>
-                <Button
-                    title="Pick an image from camera roll"
-                    onPress={this. _pickImage}
-                />
-                <Button
-                    title="Pick an image from Media Library"
-                    onPress={this. _pickLibImg}
-                />
-                {image &&
-                    <View> 
-                        <Image source={{ uri: image.uri }} style={{ width: 257, height: 257 }} />
-                        <Button
-                            title="Enter"
-                            onPress={this.photoUpload}
-                        />
-                    </View>
-                }
+            <View>
+                <Text>{this.state.Response}</Text>
+                <View style={{ flex: 1, alignItems: 'center', justifyContent: 'space-around' }}>
+                    <Button
+                        title="Pick an image from camera roll"
+                        onPress={this. _pickImage}
+                    />
+                    <Button
+                        title="Pick an image from Media Library"
+                        onPress={this. _pickLibImg}
+                    />
+                    {image &&
+                        <View> 
+                            <Image source={{ uri: image.uri }} style={{ width: 257, height: 257 }} />
+                            <Button
+                                title="Enter"
+                                onPress={this.photoUpload}
+                            />
+                        </View>
+                    }
+                </View>
             </View>
         );
     }
@@ -80,7 +84,7 @@ export default class ImagePickerExample extends React.Component {
 
         if (!result.cancelled) {
             this.setState({ image: result });
-            console.log(this.state.image.base64);
+            // console.log(this.state.image.base64);
         }
         else {
             console.log('nada')
@@ -90,7 +94,8 @@ export default class ImagePickerExample extends React.Component {
     };
 
     photoUpload = () => {
-        const url = 'http://ec2-52-66-47-27.ap-south-1.compute.amazonaws.com:8001/fileUp';
+        const url = 'http://ec2-52-66-47-27.ap-south-1.compute.amazonaws.com:8002/fileUp';
+        var r;
         // let img = this.createFormData(this.state.image);
         // console.log(img)
         fetch(url, {
@@ -109,10 +114,16 @@ export default class ImagePickerExample extends React.Component {
         })
         .then(function(myJson) {
             console.log(myJson.res);
-            // let r = (myJson.result);
-            // r = r + "Belongs to Mr. A";
-            // this.props.handDownResponse(r);
-            // console.log(JSON.stringify(myJson));
+            r = (myJson.res);
+            r = r.substring(0, r.length - 2);
+            console.log(r);
+            r = r + "  Belongs to Mr. A P J Abdul Kalam";
+            console.log(r);
+            console.log(typeof r);
+            console.log(JSON.stringify(myJson));
+        })
+        .then(() => {
+            this.setState({Response: r});
         })
         .catch(error => {
             console.log("upload error", error);

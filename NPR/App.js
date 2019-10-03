@@ -18,7 +18,7 @@ export default class App extends React.Component{
   render() {
     return (
       <View style={styles.container}>
-        <Text>{this.state.Response}</Text>
+        {/* <Text>{this.state.Response}</Text> */}
         <Cam 
         style={styles.cam} 
         handDownResponse={this.handleResponse} />
