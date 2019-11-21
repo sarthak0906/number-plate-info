@@ -10,8 +10,8 @@ const app = express();
 // Parse JSON bodies (as sent by API clients)
 app.use(express.json());
 
-app.use(bodyParser.json({limit: '90mb'}));
-app.use(bodyParser.urlencoded({limit: '90mb', extended: true}));
+app.use(bodyParser.json({limit: '9000'}));
+app.use(bodyParser.urlencoded({limit: '9000', extended: true}));
 
 app.get('/', (req, res) => {
     console.log('working on something');
@@ -46,6 +46,7 @@ app.post('/fileUp', (req, res) => {
                 }
                 
                 // res.send(JSON.stringify({"res" : stdout}));
+                console.log(stdout);
                 res.setHeader('Content-Type', 'application/json');
                 res.end(JSON.stringify({ "res": stdout}));
             })
