@@ -35,13 +35,13 @@ app.post('/fileUp', (req, res) => {
             exec('python3 model.py', (err, stdout, stderr) => {
                 if (err){
                     console.error(err);
-                    res.send('error')
+                    res.send(err)
                     return;
                 }
                 
                 if (stderr){
                     console.error(stderr);
-                    res.send('error')
+                    res.send(stderr)
                     return;
                 }
                 
