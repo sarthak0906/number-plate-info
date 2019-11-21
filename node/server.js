@@ -169,7 +169,7 @@ app.post('/fileUp', (req, res) => {
 //     // res.send(result);
 // }
 
-var port = 8002;
+var port = 8003;
 
 app.listen(port, () => {    
     console.log('server running on port ' + port);
